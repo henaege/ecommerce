@@ -31,10 +31,12 @@ class Register extends Component{
       console.log("The user submitted the form")
       var name = event.target[0].value
       var email = event.target[1].value
-      var accountType = event.target[2].value
-      var userName = event.target[3].value
-      var password = event.target[4].value
-      var confirmPassword = event.target[5].value
+      var city = event.target[2].value
+      var State = event.target[3].value
+      var accountType = event.target[4].value
+      var userName = event.target[5].value
+      var password = event.target[6].value
+      var confirmPassword = event.target[7].value
       this.props.registerAction()
   }
 
@@ -47,26 +49,94 @@ class Register extends Component{
             <Col xs={8} xsOffset={2}>
         <Form horizontal onSubmit={this.handleRegistration}>
             <FormGroup controlId="formHorizontalName">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={4}>
                 Name
             </Col>
-            <Col sm={10}>
+            <Col sm={8}>
                 <FormControl type="text" placeholder="Full Name" />
             </Col>
             </FormGroup>
             <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={4}>
                 Email
             </Col>
-            <Col sm={10}>
+            <Col sm={8}>
                 <FormControl type="email" placeholder="Email" />
             </Col>
             </FormGroup>
+            <FormGroup controlId="formHorizontalCity">
+            <Col componentClass={ControlLabel} sm={4}>
+                City
+            </Col>
+            <Col sm={8}>
+                <FormControl type="text" placeholder="City" />
+            </Col>
+            </FormGroup>
+            <FormGroup controlId="formHorizontalState">
+            <Col componentClass={ControlLabel} sm={4}>
+                State
+            </Col>
+            <Col sm={8}>
+                <FormControl componentClass="select" placeholder="State">
+                    <option value="None">Select...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire></option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </FormControl>
+            </Col>
+            </FormGroup>
             <FormGroup controlId="formAccountSelect">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={4}>
                 Account Type
             </Col>
-            <Col sm={10}>
+            <Col sm={8}>
                 <FormControl componentClass="select" placeholder="formAccountSelect">
                     <option value="customer">Customer</option>
                     <option value="employee">Employee</option>
@@ -75,28 +145,28 @@ class Register extends Component{
             </FormGroup>
 
             <FormGroup controlId="formHorizontalUserName">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={4}>
                 User Name
             </Col>
-            <Col sm={10}>
+            <Col sm={8}>
                 <FormControl type="text" placeholder="User Name" />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalPassword">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={4}>
                 Password
             </Col>
-            <Col sm={10}>
+            <Col sm={8}>
                 <FormControl type="password" placeholder="Password" />
             </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalPasswordConfirm">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={4}>
                 Confirm Password
             </Col>
-            <Col sm={10}>
+            <Col sm={8}>
                 <FormControl type="password" placeholder="Confirm Password" />
             </Col>
             </FormGroup>
@@ -115,10 +185,10 @@ class Register extends Component{
     }
 }
 
-    function mapDispatchToProps(dispatch){
-        return bindActionCreators({
-            registerAction: RegisterAction
-        }, dispatch)
-    }
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({
+        registerAction: RegisterAction
+    }, dispatch)
+}
 
 export default connect(null, mapDispatchToProps)(Register)
