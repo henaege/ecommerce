@@ -32,18 +32,29 @@ class Register extends Component{
       var name = event.target[0].value
       var email = event.target[1].value
       var city = event.target[2].value
-      var State = event.target[3].value
+      var state = event.target[3].value
       var accountType = event.target[4].value
       var userName = event.target[5].value
       var password = event.target[6].value
       var confirmPassword = event.target[7].value
-      this.props.registerAction()
+      var salesRep = event.target[8].value
+      this.props.registerAction({
+          name: name,
+          email: email,
+          accountType: accountType,
+          password: password,
+          city: city,
+          state: state,
+          userName: userName,
+          confirmPassword: confirmPassword,
+          salesRep: salesRep
+      })
   }
 
     render(){
         return(
             <div>
-    <Col sm={8} smOffset={2} className="center-align register">
+    <Col sm={6} smOffset={3} className="center-align register">
         <h2>Create an account:</h2>
         </Col>
             <Col xs={8} xsOffset={2}>
@@ -168,6 +179,14 @@ class Register extends Component{
             </Col>
             <Col sm={8}>
                 <FormControl type="password" placeholder="Confirm Password" />
+            </Col>
+            </FormGroup>
+            <FormGroup controlId="formHorizontalsalesRep">
+            <Col componentClass={ControlLabel} sm={4}>
+                Sales Rep
+            </Col>
+            <Col sm={8}>
+                <FormControl type="text" placeholder="Sales Rep" />
             </Col>
             </FormGroup>
 

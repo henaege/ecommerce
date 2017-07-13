@@ -3,6 +3,12 @@ var router = express.Router();
 var mysql = require('mysql')
 var config = require('../config/config')
 
+// include bcrypt for hashing and checking password
+var bcrypt = require('bcrypt-nodejs')
+
+// include rand-token for generating user token
+var randToken = require('rand-token')
+
 var connection = mysql.createConnection({
   host: config.host,
   user: config.user,
@@ -26,6 +32,57 @@ router.get('/productlines/get', (req, res)=> {
       res.json(results)
     }
   })
+})
+
+router.post('/register', (req, res)=> {
+  const name = req.body.name
+  const email = req.body.email
+  const accountType = req.body.accountType
+  const password = bcrypt.hashSync(req.body.password)
+  const confirmPassword = bcrypt.hashSync(req.body.confirmPassword)
+  console.log(password)
+  const city = req.body.city
+  const state = req.body.state
+  const userName = req.body.userName
+  const salesRep = req.body.salesRep
+  const creditLimit = 16000000
+
+  // We want to insert the user into 2 tanles: customers and users. Users need the customerNumber from the Customers HTMLTableAlignment. Therefore, we need to insert the user into Customers first, get the ID created by that insert, THEN insert the user into users
+
+  // customers insert query
+  var insertIntoCust = "INSERT INTO customers (customerName, city, state, salesRepEmployeeNumber, creditLimit) VALUES (?,?,?,?,?);"
+  // run the query
+  connection.query(insertIntoCust, [name, city, state, 1337, creditLimit],(error, results)=>{
+    // get the ID that was used in the customers insert
+    const newID = results.insertId
+    // get the current timestamp
+    var currTimeStamp = Date.now() / 1000
+    // Set up a token for this userName. We will give this back to react
+    var token = randToken.uid(40)
+    // users insert query
+    var insertQuery = "INSERT INTO users (uid, accountType, password, created, token) VALUES (?,?,?,?,?);"
+    // run the query. Use errors2 and results2 because we already used them
+    connection.query(insertQuery, [newID, accountType, password, currTimeStamp, token], (error2, results2)=>{
+      if(error2){
+        res.json({
+          msg: error2
+        })
+      } else {
+        res.json({msg: "userInserted", token: token})
+      }
+    })
+  })
+
+//   var insertQuery = "INSERT INTO users (accountType, password) VALUES (?,?);"
+//   connection.query(insertQuery, [accountType, password], (error, results)=>{
+//     if(error){
+//       res.json({
+//         msg: error
+//       })
+//       } else {
+//         res.json({msg: "userInserted"})
+//       }
+//   })
 })
 
 module.exports = router;
