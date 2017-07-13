@@ -43,14 +43,14 @@ class Login extends Component{
       </Col>
     </FormGroup>
 
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
+    <FormGroup className="center-align">
+      <Col smOffset={4} sm={4}>
         <Checkbox>Remember me</Checkbox>
       </Col>
     </FormGroup>
 
     <FormGroup>
-      <Col smOffset={2} sm={10}>
+      <Col smOffset={4} sm={4}>
         <Button type="submit">
           Sign in
         </Button>
