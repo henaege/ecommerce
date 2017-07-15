@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {Link, Route} from 'react-router-dom'
-import Slick from './Slick'
+import {Link} from 'react-router-dom'
 import $ from 'jquery'
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import Cart from 'react-icons/lib/fa/shopping-cart'
 
 class NavBar extends Component{
 	constructor(props){
@@ -26,6 +27,34 @@ class NavBar extends Component{
 				<MenuItem key={index} eventKey={index}><Link to={`/shop/${pl.link}`}>{pl.productLine}</Link></MenuItem>
 			)
 		})
+
+		if(this.props.registerInfo.name == undefined){
+			var rightBar = [
+				
+					<NavItem eventKey={1}>
+						<Link to="/login">Sign in</Link>
+							</NavItem>,
+							<NavItem eventKey={2}>
+								<Link to="/register">Register</Link>
+							</NavItem>,
+							<NavItem eventKey={3}>
+								<Link to="/cart"><Cart size={24} /></Link> 0 items | $0
+							</NavItem>
+			]
+		} else {
+			var rightBar = [
+							<NavItem eventKey={1}>
+								Welcome, {this.props.registerInfo.name}
+							</NavItem>,
+							<NavItem eventKey={2}>
+								<Link to="/cart"><Cart size={24} /></Link>
+							</NavItem>,
+							<NavItem eventKey={3}>
+								<Link to="/logout">Log Out</Link>
+							</NavItem>
+						]
+		}
+
     return(
     	<div>
 				<Navbar inverse collapseOnSelect fixedTop>
@@ -48,23 +77,21 @@ class NavBar extends Component{
 							</NavDropdown>
 						</Nav>
 						<Nav pullRight>
-							<NavItem eventKey={1}>
-								<Link to="/login">Sign in</Link>
-							</NavItem>
-							<NavItem eventKey={2}>
-								<Link to="/register">Register</Link>
-							</NavItem>
-							<NavItem eventKey={2}>
-								<Link to="/">Home</Link>
-							</NavItem>
+						{rightBar}
 						</Nav>
 					</Navbar.Collapse>
 				</Navbar>
-	      <Route exact path="/" component={Slick} />
+	      {/*<Route exact path="/" component={Slick} />*/}
       </div>
 	)
   }
 }
 
-export default NavBar
+function mapStateToProps(state){
+	return{
+		registerInfo: state.registerReducer
+	}
+}
+
+export default connect(mapStateToProps)(NavBar)
 

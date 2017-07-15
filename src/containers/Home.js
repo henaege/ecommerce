@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-
 // We need some glue between react and ReduxStudents. This component/container needs to know about redux PopStateEvent. The answer? The coonect method from the react-redux module
 import {connect} from 'react-redux'
 import $ from 'jquery'
 import {Panel, Col, Grid, Row, Image} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+
 
 class Home extends Component{
     constructor(props){
@@ -25,6 +25,7 @@ class Home extends Component{
 	}    
 
     render(){
+        
         const products = []
 		this.state.productlines.map((pl, index)=>{
 			products.push(
@@ -45,6 +46,9 @@ class Home extends Component{
         
         return(
             <div>
+                
+                
+                
                 <div className="center-align title">
                     <h1 className="display-2">Welcome to Classic Models!</h1>
                     <Grid>

@@ -8,14 +8,14 @@ import {combineReducers} from 'redux'
 
 import CartReducer from './CartReducer'
 
-import TimerReducer from './TimerReducer'
-
+// import RegisterReducer, which contains msg and token
+import RegisterReducer from './RegisterReducer'
 
 // create a rootReducer using the combineReducer method so we can export it to the store in index.js
 const rootReducer = combineReducers({
     // Inside here, we pass each reducer as a key-value pair. Each key will be available as a piece of state later
     cartItems: CartReducer,
-    timer: TimerReducer
+    registerReducer: RegisterReducer
 
 })
 

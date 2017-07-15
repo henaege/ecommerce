@@ -8,16 +8,18 @@
 }
 
 .title {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .slick-slider {
   margin-top: 50px;
+  width: 100vw;
 }
 
 .register, .login {
-  margin-top: 150px;
+  margin-top: 75px;
 }
+
 
 .float-right{
   float: right;

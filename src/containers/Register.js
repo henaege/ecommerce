@@ -9,11 +9,18 @@ class Register extends Component{
     constructor(props){
         super(props)
         this.state = {
-            value: ''
+            value: '',
+            registerMessage: 'Create an account:'
         }
         this.handleRegistration = this.handleRegistration.bind(this)
+
+
     }
 
+    
+        
+
+    
   getValidationState() {
     const length = this.state.value.length;
     if (length > 10) return 'success';
@@ -51,13 +58,32 @@ class Register extends Component{
       })
   }
 
+  componentWillReceiveProps(nextProps){
+        console.log("==================")
+        console.log(nextProps.registerResponse)
+        console.log("==================")
+        if (nextProps.registerResponse.msg === "userInserted"){
+            this.props.history.push("/")
+        } else if (nextProps.registerResponse.msg === "userExists"){
+            this.setState({registerMessage: "This user already exists"})
+
+        } 
+        }
+        
+  
+
+
     render(){
+        
+
+        
+
         return(
             <div>
-    <Col sm={6} smOffset={3} className="center-align register">
-        <h2>Create an account:</h2>
+    <Col xs={8} xsOffset={2} className="register">
+        <h2>{this.state.registerMessage}</h2>
         </Col>
-            <Col xs={8} xsOffset={2}>
+            <Col xs={8} xsOffset={1}>
         <Form horizontal onSubmit={this.handleRegistration}>
             <FormGroup controlId="formHorizontalName">
             <Col componentClass={ControlLabel} sm={4}>
@@ -191,7 +217,7 @@ class Register extends Component{
             </FormGroup>
 
             <FormGroup>
-            <Col sm={4} smOffset={4} className="center-align">
+            <Col sm={4} smOffset={5} className="center-align">
                 <Button type="submit">
                 Register
                 </Button>
@@ -210,4 +236,10 @@ function mapDispatchToProps(dispatch){
     }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(Register)
+function mapStateToProps(state){
+    return {
+        registerResponse: state.registerReducer
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
