@@ -1,3 +1,7 @@
-export default function(){
-    return [{cartItems: '0', cartTotal: '$0.00'}]
+export default function(state = [], action){
+    if (action.type === "UPDATE_CART"){
+        return action.payload
+    } else {
+        return state
+    }
 }

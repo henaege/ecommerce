@@ -21,6 +21,16 @@ class NavBar extends Component{
 	}
 
   render(){
+	  console.log(this.props.cartInfo)
+
+	  if (this.props.cartInfo.totalPrice != undefined) {
+		  var totalPrice = this.props.cartInfo.totalPrice
+		  var totalItems = this.props.cartInfo.totalItems
+	  }else {
+		  var totalPrice = 0.00
+		  var totalItems = 0
+	  }
+
 		const shopMenu = []
 		this.state.productlines.map((pl, index)=>{
 			shopMenu.push(
@@ -51,7 +61,7 @@ class NavBar extends Component{
 								<Link to="/logout">Log Out</Link>
 							</NavItem>,
 							<NavItem eventKey={2}>
-								<Link to="/cart"><Cart size={24} /></Link>(0)
+								<Link to="/cart"><Cart size={24} /></Link>&nbsp;{totalItems} items | ${totalPrice}
 							</NavItem>
 						]
 		}
@@ -90,7 +100,8 @@ class NavBar extends Component{
 
 function mapStateToProps(state){
 	return{
-		registerInfo: state.registerReducer
+		registerInfo: state.registerReducer,
+		cartInfo: state.cartReducer
 	}
 }
 

@@ -132,6 +132,13 @@ form {
   vertical-align: middle;
 }
 
+.add-to-cart:hover {
+  color: green
+}
+
+.pay-button {
+  margin-top: 30px;
+}
 
 
 

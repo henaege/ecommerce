@@ -3,6 +3,7 @@ import {Form, Col, Checkbox, Button, FormGroup, ControlLabel, FormControl} from 
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import LoginAction from '../actions/LoginAction'
+import GetCart from '../actions/GetCart'
 
 class Login extends Component{
     constructor(props){
@@ -57,6 +58,8 @@ handleLogin(event){
 		console.log(nextProps.registerResponse)
 		console.log("=======================")
     if(nextProps.registerResponse.msg === 'loginSuccess'){
+      this.props.getCart(nextProps.registerResponse
+      .token)
       this.props.history.push("/")
     } else if (nextProps.registerMessage === 'userExists'){
       console.log("User name taken!")
@@ -113,7 +116,8 @@ handleLogin(event){
 
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
-        loginAction: LoginAction
+        loginAction: LoginAction,
+        getCart: GetCart
     }, dispatch)
 }
 

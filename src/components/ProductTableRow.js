@@ -13,6 +13,13 @@ function ProductTableRow(props){
 		var inStockClass = "bg-danger";
 		var inStock = 'Out of stock!'
 	}
+
+    if (props.loggedIn) {
+        var button = <td className="add-to-cart"><AddToCart size={24} onClick={()=>{console.log("ADDED TO CART"); props.addToCart(product.productCode, props.token)}}/></td>
+    } else {
+        var button = ""
+    }
+
 	return (		
 		<tr>
 			<td>{product.productName}</td>
@@ -22,7 +29,7 @@ function ProductTableRow(props){
 			<td className={inStockClass}>{inStock}</td>
 			<td>{product.buyPrice}</td>
 			<td>{product.MSRP}</td>
-            <td className="vertical-align"><AddToCart size={24} /></td>
+            {button}
 		</tr>
 	)
 }

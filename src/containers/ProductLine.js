@@ -4,7 +4,9 @@ import $ from 'jquery'
 import {Panel, Col, Grid, Row, Image, Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import ProductTableRow from '../components/ProductTableRow'
-
+import Sort from 'react-icons/lib/fa/sort'
+import {bindActionCreators} from 'redux'
+import UpdateCart from '../actions/UpdateCart'
 
 class ProductLine extends Component{
     constructor(props){
@@ -57,10 +59,26 @@ getProducts(props) {
 
     render(){
 
+		// console.log(this.props.loginInfo)
+		// Check to see if msg="loginSuccess". If so, they are logged in; Let the productTableRow Know. If Not, send appropriate props
+
+		if (this.props.loginInfo.token != undefined) {
+			var loggedIn = true
+			var token = this.props.loginInfo.token
+		} else {
+			var loggedIn = false
+			var token = null
+		}
+
 		var productTableArray = []
 		this.state.productList.map((product, index)=> {
 			var title = product.productLine
-			productTableArray.push(<ProductTableRow key={index} product={product} />
+			productTableArray.push(<ProductTableRow
+				key={index} 
+				product={product}
+				addToCart={this.props.updateCart}
+				loggedIn={loggedIn}
+				token={token}/>
 			)
 		})
 
@@ -76,13 +94,13 @@ getProducts(props) {
 			<div className="container-fluid product-table">
 			<Table striped bordered hover condensed responsive>
 				<thead>
-					<th className="table-head" onClick={()=>{this.sortTable("name")}}>Product Name</th>
-					<th className="table-head" onClick={()=>{this.sortTable("scale")}}>Model Scale</th>
-					<th className="table-head" onClick={()=>{this.sortTable("vendor")}}>Made By</th>
-					<th className="table-head" onClick={()=>{this.sortTable("description")}}>Description</th>
-					<th className="table-head" onClick={()=>{this.sortTable("stock")}}>Stock Status</th>
-					<th className="table-head" onClick={()=>{this.sortTable("buyPrice")}}>Your Price</th>
-					<th className="table-head" onClick={()=>{this.sortTable("MSRP")}}>MSRP</th>
+					<th className="table-head" onClick={()=>{this.sortTable("name")}}>Product Name<Sort /></th>
+					<th className="table-head" onClick={()=>{this.sortTable("scale")}}>Model Scale<Sort /></th>
+					<th className="table-head" onClick={()=>{this.sortTable("vendor")}}>Made By<Sort /></th>
+					<th className="table-head" onClick={()=>{this.sortTable("description")}}>Description<Sort /></th>
+					<th className="table-head" onClick={()=>{this.sortTable("stock")}}>Stock Status<Sort /></th>
+					<th className="table-head" onClick={()=>{this.sortTable("buyPrice")}}>Your Price<Sort /></th>
+					<th className="table-head" onClick={()=>{this.sortTable("MSRP")}}>MSRP<Sort /></th>
 				</thead>
 				<tbody>{productTableArray}</tbody>
 			</Table>
@@ -93,4 +111,16 @@ getProducts(props) {
 
 }
 
-export default ProductLine
+function mapStateToProps(state){
+	return {
+		loginInfo: state.registerReducer
+	}
+}
+
+function mapDispatchToProps(dispatch){
+	return bindActionCreators({
+		updateCart: UpdateCart
+	}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductLine)

@@ -7,6 +7,7 @@ import Register from './containers/Register'
 import Login from './containers/Login'
 import Slick from './components/Slick'
 import ProductLine from './containers/ProductLine'
+import Cart from './containers/Cart'
 // import '/bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
@@ -20,7 +21,8 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route path="/shop/:productline" component={ProductLine}></Route>
+            <Route path="/shop/:productline" component={ProductLine}/>
+            <Route path="/cart" component={Cart} />
           </div>
         </div>
       </Router>
