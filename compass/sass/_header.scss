@@ -15,3 +15,10 @@ a {
         font-size: 30px;
     }
 }
+
+$menu_links: 12;
+@for $i from 0 to $menu_links{
+    .dopdown-links a:nth-child(#{$i}){
+        top: 40 + ($i * 20) + px
+    }
+}

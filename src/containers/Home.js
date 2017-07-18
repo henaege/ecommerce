@@ -19,7 +19,7 @@ class Home extends Component{
 
     componentDidMount() {
 		$.getJSON(window.hostAddress + '/productlines/get', (productlinesData)=> {
-			console.log(productlinesData)
+			// console.log(productlinesData)
 			this.setState({productlines: productlinesData})
 		})
 	}    
@@ -30,7 +30,7 @@ class Home extends Component{
 		this.state.productlines.map((pl, index)=>{
 			products.push(
                 <Col key={index} xs={12} md={6} lg={4}>
-                    <Link to={pl.link} className="panel-link"><Panel className="panel" header={pl.productLine}>
+                    <Link to={`/shop/${pl.link}`} className="panel-link"><Panel className="panel" header={<h3>{pl.productLine}</h3>}>
                         <div className="center-align">
                             <Image className="product-image" src={pl.image}responsive />
                         </div>

@@ -6,6 +6,7 @@ import Home from './containers/Home'
 import Register from './containers/Register'
 import Login from './containers/Login'
 import Slick from './components/Slick'
+import ProductLine from './containers/ProductLine'
 // import '/bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
@@ -15,10 +16,11 @@ class App extends Component {
         <div className = "App">
           <NavBar />
           <Route exact path="/" component={Slick} />
-          <div className="container">
+          <div className="container-fluid">
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route path="/shop/:productline" component={ProductLine}></Route>
           </div>
         </div>
       </Router>

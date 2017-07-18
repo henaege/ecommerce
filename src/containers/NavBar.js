@@ -15,7 +15,7 @@ class NavBar extends Component{
 
 	componentDidMount() {
 		$.getJSON(window.hostAddress + '/productlines/get', (productlinesData)=> {
-			console.log(productlinesData)
+			// console.log(productlinesData)
 			this.setState({productlines: productlinesData})
 		})
 	}
@@ -28,7 +28,7 @@ class NavBar extends Component{
 			)
 		})
 
-		if(this.props.registerInfo.name == undefined){
+		if(this.props.registerInfo.name === undefined){
 			var rightBar = [
 				
 					<NavItem eventKey={1}>
@@ -46,11 +46,12 @@ class NavBar extends Component{
 							<NavItem eventKey={1}>
 								Welcome, {this.props.registerInfo.name}
 							</NavItem>,
-							<NavItem eventKey={2}>
-								<Link to="/cart"><Cart size={24} /></Link>
-							</NavItem>,
+						
 							<NavItem eventKey={3}>
 								<Link to="/logout">Log Out</Link>
+							</NavItem>,
+							<NavItem eventKey={2}>
+								<Link to="/cart"><Cart size={24} /></Link>(0)
 							</NavItem>
 						]
 		}

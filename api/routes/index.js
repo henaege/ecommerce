@@ -34,14 +34,14 @@ router.get('/productlines/get', (req, res)=> {
   })
 })
 
-router.get('/products/:get', (req, res)=> {
-  const selectQuery = `SELECT * FROM products INNER JOIN productlines ON productlines.link='${req.params.val}' and products.productLine = productlines.productLine;`
-  connection.query(selectQuery, (error, results, fields)=> {
-    if (error){
-      res.json(error)
-    }else{
-      res.json(results)
-    }
+router.get(`/productlines/:productLines/get`, (req, res)=> {
+  const pl = req.params.productLines
+  var plQuery = `SELECT * from productlines
+                    INNER JOIN products ON productlines.productLine = products.productLine WHERE link = ?;`
+  connection.query(plQuery, [pl], (error, results)=> {
+    if (error) throw error
+    
+    res.json(results)
   })
 })
 

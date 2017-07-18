@@ -8,7 +8,7 @@
 }
 
 .title {
-  margin-top: 50px;
+  margin-top: 65px;
 }
 
 .slick-slider {
@@ -125,6 +125,11 @@ form {
 .panel:hover {
   box-shadow: 4px 0 2px -2px rgba(0,0,0,0.4);
   transform: translate(-2px, -2px);
+}
+
+.vertical-align {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 

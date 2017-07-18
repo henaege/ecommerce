@@ -10,7 +10,7 @@ class Login extends Component{
         this.state = {
           registerMessage: "",
             passwordError: null,
-            emailError: null,
+            userNameError: null,
             formError: false
         }
         this.handleLogin = this.handleLogin.bind(this)
@@ -28,20 +28,20 @@ handleLogin(event){
         var passwordError = "error"
         error = true
       } else {
-        var passwordError = null
+        var passwordError = "null"
       }
 
       if (userName.length < 3){
-        var emailError = "error"
+        var userNameError = "error"
         error = true
       } else {
-        var emailError = "success"
+        var userNameError = "success"
       }
 
       if(error) {
         this.setState({
           formError: true,
-          emailError: emailError,
+          userNameError: userNameError,
           passwordError: passwordError
         })
       } else {
@@ -66,9 +66,6 @@ handleLogin(event){
     }
   }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value });
-  }
     render(){
         return(
     <div className="center-align login">
