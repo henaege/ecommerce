@@ -92,7 +92,7 @@ getProducts(props) {
 			<div>
 			<h1 className="title">{textHeader}</h1>
 			<div className="container-fluid product-table">
-			<Table striped bordered hover condensed responsive>
+			{/*<Table striped bordered hover condensed responsive>
 				<thead>
 					<th className="table-head" onClick={()=>{this.sortTable("name")}}>Product Name<Sort /></th>
 					<th className="table-head" onClick={()=>{this.sortTable("scale")}}>Model Scale<Sort /></th>
@@ -103,7 +103,8 @@ getProducts(props) {
 					<th className="table-head" onClick={()=>{this.sortTable("MSRP")}}>MSRP<Sort /></th>
 				</thead>
 				<tbody>{productTableArray}</tbody>
-			</Table>
+			</Table>*/}
+			{productTableArray}
 			</div>
 			</div>
 		)

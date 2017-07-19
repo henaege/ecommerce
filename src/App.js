@@ -17,7 +17,7 @@ class App extends Component {
         <div className = "App">
           <NavBar />
           <Route exact path="/" component={Slick} />
-          <div className="container-fluid">
+          <div className="container-fluid main">
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />

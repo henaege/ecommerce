@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.main {
+  background: radial-gradient(circle at 50% 0%, rgb(230, 230, 230) 10%, rgb(180, 180, 180) 50%, rgb(140, 140, 140) 100%);
+  height: 100%; 
+}
+
 .navbar {
   border-radius: 0;
   margin: 0;
@@ -9,6 +14,8 @@
 
 .title {
   margin-top: 65px;
+  margin-bottom: 20px;
+  font-weight: 500;
 }
 
 .slick-slider {
@@ -96,19 +103,20 @@ form {
   margin-top: 25px;
 }
 
-.panel {
+.home-panel {
   text-align: left;
   min-height: 313px;
+  background: radial-gradient(circle at 50% 0%, rgb(230, 230, 230) 10%, rgba(102, 204, 255, 0.6) 50%, rgb(200, 200, 200) 100%);
 }
 
 @media screen and (min-width: 1200px){
-  .panel {
+  .home-panel {
   min-height: 650px;
   }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1199px){
-  .panel {
+  .home-panel {
     min-height: 650px;
   }
 }
@@ -132,15 +140,51 @@ form {
   vertical-align: middle;
 }
 
+.add-to-cart {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: solid 1px #DDDDDD;
+  border-radius: 3px;
+  background-color: #F5F5F5;
+  text-align: center;
+}
+
+.center-align {
+  text-align: center;
+}
+
 .add-to-cart:hover {
   color: green
 }
 
 .pay-button {
-  margin-top: 30px;
+  margin-bottom: 25px;
 }
 
+.product-panel {
+  /*height: 655px;*/
+  text-align: left;
+  background: radial-gradient(circle at 50% 0%, rgb(230, 230, 230) 10%, rgba(102, 204, 255, 0.6) 50%, rgb(200, 200, 200) 100%);
+}
 
+.add-cart-button {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
+.product-description {
+  min-height: 150px;
+}
+
+.price-panel {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.in-stock {
+  padding-left: 2px;
+  padding-right: 2px;
+}
 
 

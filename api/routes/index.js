@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql')
 var config = require('../config/config')
+var stripe = require('stripe')(config.stripeKey)
 
 // include bcrypt for hashing and checking password
 var bcrypt = require('bcrypt-nodejs')
@@ -190,6 +191,26 @@ router.post('/login', (req, res)=> {
           msg: "wrongPassword"
         })
       }
+    }
+  })
+})
+
+router.post('/stripe', (req, res)=> {
+  var userToken = req.body.token
+  var stripeToken = req.body.stripeToken
+  var amount = req.body.amount
+  // Stripe module which is associated with our secret key has a create method which takes an object of options to charge
+  stripe.charges.create({
+    amount: amount,
+    currency: 'usd',
+    source: stripeToken,
+    description: "Charges for classic models"
+  }, (error, charge)=> {
+    if(error){
+      res.json({msg: error})
+    } else {
+      // insert stuff from cart that was just paid into: orders, orderdetails
+      res.json({msg: "paymentSuccess"})
     }
   })
 })

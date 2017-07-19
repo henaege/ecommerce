@@ -5,8 +5,13 @@ import GetCart from '../actions/GetCart'
 import ProductTableRow from '../components/ProductTableRow'
 import {Button} from 'react-bootstrap'
 import $ from 'jquery'
+import {Link} from 'react-router-dom'
 
 class Cart extends Component{
+    constructor(props){
+        super(props)
+        this.makePayment = this.makePayment.bind(this)
+    }
 
 componentDidMount() {
     if(this.props.loginInfo.token != undefined){
@@ -21,11 +26,12 @@ componentDidMount() {
         var handler = window.StripeCheckout.configure({
             key: 'pk_test_DIhBN1tLgDgdlV1WEnXeQlXc',
             locale: 'auto',
+            image: "http://iamdrewt.net/assets/images/Drew2.JPG",
             token: (token) => {
                 var theData = {
-                    amount: 10 * 100,
+                    amount: this.props.cartInfo.totalPrice * 100,
                     stripeToken: token.id,
-                    userToken: this.props.tokenData,
+                    userToken: this.props.loginInfo.token
                 }
                 $.ajax({
                     method: 'POST',
@@ -34,7 +40,7 @@ componentDidMount() {
                 }).done((data) => {
                     console.log(data);
                     if (data.msg === 'paymentSuccess') {
-
+                        this.props.history.push('/thankyou')
                     }
                 });
             }
@@ -42,11 +48,20 @@ componentDidMount() {
         handler.open({
             name: "Pay Now",
             description: 'Pay Now',
-            amount: 10 * 100
+            amount: this.props.cartInfo.totalPrice * 100
         })
     }
 
     render(){
+
+        if (this.props.cartInfo.products == undefined){
+            return (
+                <div>
+                    <h3 className="title">Your cart is empty! Please add items or <Link to= '/login'>log in</Link>.</h3>
+                </div>
+            )
+        }
+
         var cartArray = []
         this.props.cartInfo.products.map((product, index)=>{
             // console.log(product)
@@ -63,10 +78,15 @@ componentDidMount() {
         console.log(this.props.cartInfo)
         return(
             <div>
-                
-            <div className="title">{cartArray}</div>
-            <div>
+                <div className="title">
+                    <h3>Your cart total is: ${this.props.cartInfo.totalPrice}</h3>
                     <Button className="pay-button" onClick={this.makePayment}>Pay Now</Button>
+                </div>
+                
+                <div>{cartArray}</div>
+            
+            <div>
+                    
                 </div>
             </div>
         )

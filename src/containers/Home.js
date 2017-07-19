@@ -30,7 +30,7 @@ class Home extends Component{
 		this.state.productlines.map((pl, index)=>{
 			products.push(
                 <Col key={index} xs={12} md={6} lg={4}>
-                    <Link to={`/shop/${pl.link}`} className="panel-link"><Panel className="panel" header={<h3>{pl.productLine}</h3>}>
+                    <Link to={`/shop/${pl.link}`} className="panel-link"><Panel className="home-panel" header={<h1>{pl.productLine}</h1>}>
                         <div className="center-align">
                             <Image className="product-image" src={pl.image}responsive />
                         </div>
