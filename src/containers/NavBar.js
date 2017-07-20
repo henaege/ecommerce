@@ -58,7 +58,7 @@ class NavBar extends Component{
 							</NavItem>,
 						
 							<NavItem >
-								<Link to="/logout">Log Out</Link>
+								<a href="http://localhost:3000/">Log Out</a>
 							</NavItem>,
 							<NavItem >
 								<Link to="/cart"><Cart size={24} />&nbsp;{totalItems} items | ${totalPrice}</Link>

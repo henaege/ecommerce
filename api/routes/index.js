@@ -197,7 +197,7 @@ router.post('/login', (req, res)=> {
 })
 
 router.post('/stripe', (req, res)=> {
-  var userToken = req.body.token
+  var userToken = req.body.userToken
   var stripeToken = req.body.stripeToken
   var amount = req.body.amount
   // Stripe module which is associated with our secret key has a create method which takes an object of options to charge
@@ -210,10 +210,59 @@ router.post('/stripe', (req, res)=> {
     if(error){
       res.json({msg: error})
     } else {
+      const getUserQuery = `SELECT MAX(users.id) as id, MAX(users.uid) as uid, cart.productCode, products.buyPrice, COUNT(cart.productCode) as quantity FROM users 
+      INNER JOIN cart ON users.id = cart.uid 
+      INNER JOIN products ON cart.productCode = products.productCode 
+      WHERE token = ? GROUP BY cart.productCode, users.uid;`
+      console.log(userToken)
+      connection.query(getUserQuery, [userToken], (error2, results2)=>{
+        const customerId = results2[0].uid
+        const date = new Date()
+        const insertIntoOrders = `INSERT INTO orders
+					(orderDate,requiredDate,comments,status,customerNumber)
+					VALUES
+					(?,?,'Website Order','Paid',?)`
+					connection.query(insertIntoOrders,[date, date, customerId],(error3,results3)=>{
+						console.log(results3)
+						const newOrderNumber = results3.insertId;
+          // set up and array to stash our promises in
+          // after all the promises have been created we will run .all 
+          var orderDetailPromises = []
+          // results2 (the SELECT query above) contains an array of rows. Each row has the uid, the product code, and the price. Map through this array and add each one to the order details table
+          results2.map((cartRow)=>{
+            var insertOrderDetail = `INSERT INTO orderdetails
+            (orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber) VALUES (?, ?, ?, ?, 1);`
+            // wrap a promise around our queries (because queries are async). We will call resolve if it succeeds, call reject if it fails. Then, push the promise onto the array above so that when all of them are finished, we know it's safe to move on
+            const aPromise = new Promise((resolve, reject)=> {
+              connection.query(insertOrderDetail, [newOrderNumber, cartRow.productCode, cartRow.quantity, cartRow.buyPrice],(error4, results4)=> {
+              //another row finished
+              if (error4){
+                reject(error4)
+              } else {
+                resolve(results4)
+              }
+            
+            })
+          })
+          orderDetailPromises.push(aPromise)
+        })
+        // When all the promises have called Resolve, the .all function will RTCRtpUnhandled. It has a .then that we can use
+        Promise.all(orderDetailPromises).then((finalValues)=> {
+          console.log("All promises finished")
+          console.log(finalValues)
+          const deleteQuery = `DELETE FROM cart WHERE uid = ${results2[0].id};`
+          connection.query(deleteQuery, (error5, results5)=> {
+            res.json({msg: "paymentSuccess"})
+          })
+        })
+      })
       // insert stuff from cart that was just paid into: orders, orderdetails
-      res.json({msg: "paymentSuccess"})
+      
+    })
     }
   })
 })
 
 module.exports = router;
+
+

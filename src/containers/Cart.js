@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import GetCart from '../actions/GetCart'
 import CartContents from '../components/CartContents'
-import {Button} from 'react-bootstrap'
+import {Col, Button} from 'react-bootstrap'
 import $ from 'jquery'
 import {Link} from 'react-router-dom'
 
@@ -56,12 +56,12 @@ componentDidMount() {
         console.dir(this.props)
 
         if (this.props.cartInfo.products == undefined){
-            return (
-                <div>
-                    <h3 className="title">Your cart is empty! Please add items or <Link to= '/login'>log in</Link>.</h3>
-                </div>
-            )
-        }
+                    return (
+                        <div>
+                            <h3 className="title">Your cart is empty! Please add items or <Link to= '/login'>log in</Link>.</h3>
+                        </div>
+                    )
+                }
 
         var cartArray = []
         this.props.cartInfo.products.map((product, index)=>{
@@ -76,6 +76,8 @@ componentDidMount() {
             )
         })
 
+        
+
         console.log(this.props.cartInfo)
         console.log(this.props)
         return(
@@ -84,7 +86,7 @@ componentDidMount() {
                     <h3>Your order total is: ${this.props.cartInfo.totalPrice}</h3>
                     <Button className="pay-button" onClick={this.makePayment}>Pay Now</Button>
                 </div>
-                
+                <div><h3>Cart Contents:</h3></div>
                 <div>{cartArray}</div>
             
             <div>

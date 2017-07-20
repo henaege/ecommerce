@@ -24,7 +24,7 @@ function ProductTableRow(props){
     //     var button = ""
     //     var addMessage = ""
     } else {
-        var button = <Col xs={6} xsOffset={3} className="add-cart-button center-align"><Link to="/login" ><Button>Log in to Purchase</Button></Link></Col>
+        var button = <Col xs={6} xsOffset={3} className="center-align"><Link to="/login" ><Button className="add-cart-button">Log in to Purchase</Button></Link></Col>
         var addMessage = ""
     }
 
