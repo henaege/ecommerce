@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import GetCart from '../actions/GetCart'
-import ProductTableRow from '../components/ProductTableRow'
+import CartContents from '../components/CartContents'
 import {Button} from 'react-bootstrap'
 import $ from 'jquery'
 import {Link} from 'react-router-dom'
@@ -53,6 +53,7 @@ componentDidMount() {
     }
 
     render(){
+        console.dir(this.props)
 
         if (this.props.cartInfo.products == undefined){
             return (
@@ -66,20 +67,21 @@ componentDidMount() {
         this.props.cartInfo.products.map((product, index)=>{
             // console.log(product)
             cartArray.push(
-                <ProductTableRow 
+                <CartContents 
                 key={index}
                 product={product}
                 addToCart={null}
-                loggedIn={false}
-                token={null} />
+                loggedIn={this.props.loggedIn}
+                token={this.props.token} />
             )
         })
 
         console.log(this.props.cartInfo)
+        console.log(this.props)
         return(
             <div>
                 <div className="title">
-                    <h3>Your cart total is: ${this.props.cartInfo.totalPrice}</h3>
+                    <h3>Your order total is: ${this.props.cartInfo.totalPrice}</h3>
                     <Button className="pay-button" onClick={this.makePayment}>Pay Now</Button>
                 </div>
                 

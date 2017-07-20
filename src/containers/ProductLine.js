@@ -92,18 +92,6 @@ getProducts(props) {
 			<div>
 			<h1 className="title">{textHeader}</h1>
 			<div className="container-fluid product-table">
-			{/*<Table striped bordered hover condensed responsive>
-				<thead>
-					<th className="table-head" onClick={()=>{this.sortTable("name")}}>Product Name<Sort /></th>
-					<th className="table-head" onClick={()=>{this.sortTable("scale")}}>Model Scale<Sort /></th>
-					<th className="table-head" onClick={()=>{this.sortTable("vendor")}}>Made By<Sort /></th>
-					<th className="table-head" onClick={()=>{this.sortTable("description")}}>Description<Sort /></th>
-					<th className="table-head" onClick={()=>{this.sortTable("stock")}}>Stock Status<Sort /></th>
-					<th className="table-head" onClick={()=>{this.sortTable("buyPrice")}}>Your Price<Sort /></th>
-					<th className="table-head" onClick={()=>{this.sortTable("MSRP")}}>MSRP<Sort /></th>
-				</thead>
-				<tbody>{productTableArray}</tbody>
-			</Table>*/}
 			{productTableArray}
 			</div>
 			</div>

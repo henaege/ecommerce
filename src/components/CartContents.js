@@ -1,10 +1,9 @@
 import React from 'react'
-import AddToCart from 'react-icons/lib/fa/cart-plus'
 import {Panel, PanelGroup, Col, Grid, Row, Image, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 
-function ProductTableRow(props){
+function CartContents(props){
 	const product = props.product
 	if(product.quantityInStock > 100){
 		var inStockClass = "center-align in-stock";
@@ -17,16 +16,16 @@ function ProductTableRow(props){
 		var inStock = 'Out of stock!'
 	}
 
-    if (props.loggedIn) {
-        var button =  <Col xs={6} xsOffset={3}className="add-to-cart center-align" onClick={()=>{console.log("ADDED TO CART"); props.addToCart(product.productCode, props.token)}}><AddToCart size={32} /></Col>
-        var addMessage = <Col xs={4} xsOffset={4}className="add-to-cart-text center-align">Add to Cart</Col>
-    // } else if (props.location.pathname === "/cart"){
-    //     var button = ""
+    // if (props.loggedIn) {
+    //     var button =  <Col xs={6} xsOffset={3}className="add-to-cart center-align" onClick={()=>{console.log("ADDED TO CART"); props.addToCart(product.productCode, props.token)}}><AddToCart size={32} /></Col>
+    //     var addMessage = <Col xs={4} xsOffset={4}className="add-to-cart-text center-align">Add to Cart</Col>
+    // // } else if (props.location.pathname === "/cart"){
+    // //     var button = ""
+    // //     var addMessage = ""
+    // } else {
+    //     var button = <Col xs={6} xsOffset={3} className="add-cart-button center-align"><Link to="/login" ><Button>Log in to Purchase</Button></Link></Col>
     //     var addMessage = ""
-    } else {
-        var button = <Col xs={6} xsOffset={3} className="add-cart-button center-align"><Link to="/login" ><Button>Log in to Purchase</Button></Link></Col>
-        var addMessage = ""
-    }
+    // }
 
     const title = <h3>{product.productName}</h3>
 
@@ -51,9 +50,7 @@ function ProductTableRow(props){
                         <Col className="center-align in-stock" xs={6}>Buyer Price: ${product.buyPrice}</Col>
                         <Col className="center-align in-stock" xs={4}>MSRP: ${product.MSRP}</Col>
                         </Col>
-                        <hr></hr>
-                        {button}
-                        {addMessage}
+                        
                         
                         
                     </Panel>
@@ -64,4 +61,4 @@ function ProductTableRow(props){
 	)
 }
 
-export default ProductTableRow;
+export default CartContents;

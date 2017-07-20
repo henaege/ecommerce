@@ -129,6 +129,7 @@ router.post('/getcart', (req, res)=> {
           } else {
             const getCartContents = `SELECT * FROM cart INNER JOIN products on products.productCode = cart.productCode WHERE uid=?;`
             connection.query(getCartContents, [results[0].id], (error4, results4)=> {
+              console.log(results4)
               var finalCart = results3[0]
               finalCart.products = results4
               res.json(finalCart)

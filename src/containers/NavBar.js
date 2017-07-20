@@ -41,27 +41,27 @@ class NavBar extends Component{
 		if(this.props.registerInfo.name === undefined){
 			var rightBar = [
 				
-					<NavItem eventKey={1}>
+					<NavItem >
 						<Link to="/login">Sign in</Link>
 							</NavItem>,
-							<NavItem eventKey={2}>
+							<NavItem >
 								<Link to="/register">Register</Link>
 							</NavItem>,
-							<NavItem eventKey={3}>
+							<NavItem >
 								<Link to="/cart"><Cart size={24} /></Link> 0 items | $0
 							</NavItem>
 			]
 		} else {
 			var rightBar = [
-							<NavItem eventKey={1}>
+							<NavItem >
 								Welcome, {this.props.registerInfo.name}
 							</NavItem>,
 						
-							<NavItem eventKey={3}>
+							<NavItem >
 								<Link to="/logout">Log Out</Link>
 							</NavItem>,
-							<NavItem eventKey={2}>
-								<Link to="/cart"><Cart size={24} /></Link>&nbsp;{totalItems} items | ${totalPrice}
+							<NavItem >
+								<Link to="/cart"><Cart size={24} />&nbsp;{totalItems} items | ${totalPrice}</Link>
 							</NavItem>
 						]
 		}
